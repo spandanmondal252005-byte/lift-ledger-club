@@ -29,8 +29,10 @@ function safeRedirect(target: string | undefined): string {
 export const Route = createFileRoute("/auth")({
   validateSearch: (search: Record<string, unknown>): AuthSearch => {
     const out: AuthSearch = {};
-    if (typeof search.redirect === "string") out.redirect = search.redirect;
-    if (search.mode === "signin" || search.mode === "signup" || search.mode === "forgot") out.mode = search.mode;
+    const redirect = search["redirect"];
+    const mode = search["mode"];
+    if (typeof redirect === "string") out.redirect = redirect;
+    if (mode === "signin" || mode === "signup" || mode === "forgot") out.mode = mode;
     return out;
   },
   head: () => ({

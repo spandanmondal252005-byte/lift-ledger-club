@@ -14,8 +14,13 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
+import { Route as AuthenticatedRecordsRouteImport } from './routes/_authenticated/records'
 import { Route as AuthenticatedExercisesIndexRouteImport } from './routes/_authenticated/exercises.index'
 import { Route as AuthenticatedExercisesExerciseIdRouteImport } from './routes/_authenticated/exercises.$exerciseId'
+import { Route as AuthenticatedHistoryIndexRouteImport } from './routes/_authenticated/history.index'
+import { Route as AuthenticatedHistorySessionIdRouteImport } from './routes/_authenticated/history.$sessionId'
+import { Route as AuthenticatedWorkoutSessionIdRouteImport } from './routes/_authenticated/workout.$sessionId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -41,6 +46,16 @@ const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedRecordsRoute = AuthenticatedRecordsRouteImport.update({
+  id: '/records',
+  path: '/records',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedExercisesIndexRoute =
   AuthenticatedExercisesIndexRouteImport.update({
     id: '/exercises/',
@@ -53,22 +68,50 @@ const AuthenticatedExercisesExerciseIdRoute =
     path: '/exercises/$exerciseId',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedHistoryIndexRoute =
+  AuthenticatedHistoryIndexRouteImport.update({
+    id: '/history/',
+    path: '/history/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedHistorySessionIdRoute =
+  AuthenticatedHistorySessionIdRouteImport.update({
+    id: '/history/$sessionId',
+    path: '/history/$sessionId',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedWorkoutSessionIdRoute =
+  AuthenticatedWorkoutSessionIdRouteImport.update({
+    id: '/workout/$sessionId',
+    path: '/workout/$sessionId',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/profile': typeof AuthenticatedProfileRoute
+  '/records': typeof AuthenticatedRecordsRoute
   '/exercises/$exerciseId': typeof AuthenticatedExercisesExerciseIdRoute
+  '/history/$sessionId': typeof AuthenticatedHistorySessionIdRoute
+  '/workout/$sessionId': typeof AuthenticatedWorkoutSessionIdRoute
   '/exercises/': typeof AuthenticatedExercisesIndexRoute
+  '/history/': typeof AuthenticatedHistoryIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/profile': typeof AuthenticatedProfileRoute
+  '/records': typeof AuthenticatedRecordsRoute
   '/exercises/$exerciseId': typeof AuthenticatedExercisesExerciseIdRoute
+  '/history/$sessionId': typeof AuthenticatedHistorySessionIdRoute
+  '/workout/$sessionId': typeof AuthenticatedWorkoutSessionIdRoute
   '/exercises': typeof AuthenticatedExercisesIndexRoute
+  '/history': typeof AuthenticatedHistoryIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -77,8 +120,13 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/profile': typeof AuthenticatedProfileRoute
+  '/_authenticated/records': typeof AuthenticatedRecordsRoute
   '/_authenticated/exercises/$exerciseId': typeof AuthenticatedExercisesExerciseIdRoute
+  '/_authenticated/history/$sessionId': typeof AuthenticatedHistorySessionIdRoute
+  '/_authenticated/workout/$sessionId': typeof AuthenticatedWorkoutSessionIdRoute
   '/_authenticated/exercises/': typeof AuthenticatedExercisesIndexRoute
+  '/_authenticated/history/': typeof AuthenticatedHistoryIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -87,16 +135,26 @@ export interface FileRouteTypes {
     | '/auth'
     | '/reset-password'
     | '/dashboard'
+    | '/profile'
+    | '/records'
     | '/exercises/$exerciseId'
+    | '/history/$sessionId'
+    | '/workout/$sessionId'
     | '/exercises/'
+    | '/history/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/auth'
     | '/reset-password'
     | '/dashboard'
+    | '/profile'
+    | '/records'
     | '/exercises/$exerciseId'
+    | '/history/$sessionId'
+    | '/workout/$sessionId'
     | '/exercises'
+    | '/history'
   id:
     | '__root__'
     | '/'
@@ -104,8 +162,13 @@ export interface FileRouteTypes {
     | '/auth'
     | '/reset-password'
     | '/_authenticated/dashboard'
+    | '/_authenticated/profile'
+    | '/_authenticated/records'
     | '/_authenticated/exercises/$exerciseId'
+    | '/_authenticated/history/$sessionId'
+    | '/_authenticated/workout/$sessionId'
     | '/_authenticated/exercises/'
+    | '/_authenticated/history/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -152,6 +215,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/profile': {
+      id: '/_authenticated/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof AuthenticatedProfileRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/records': {
+      id: '/_authenticated/records'
+      path: '/records'
+      fullPath: '/records'
+      preLoaderRoute: typeof AuthenticatedRecordsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/exercises/': {
       id: '/_authenticated/exercises/'
       path: '/exercises'
@@ -166,19 +243,50 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedExercisesExerciseIdRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/history/': {
+      id: '/_authenticated/history/'
+      path: '/history'
+      fullPath: '/history/'
+      preLoaderRoute: typeof AuthenticatedHistoryIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/history/$sessionId': {
+      id: '/_authenticated/history/$sessionId'
+      path: '/history/$sessionId'
+      fullPath: '/history/$sessionId'
+      preLoaderRoute: typeof AuthenticatedHistorySessionIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/workout/$sessionId': {
+      id: '/_authenticated/workout/$sessionId'
+      path: '/workout/$sessionId'
+      fullPath: '/workout/$sessionId'
+      preLoaderRoute: typeof AuthenticatedWorkoutSessionIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
+  AuthenticatedRecordsRoute: typeof AuthenticatedRecordsRoute
   AuthenticatedExercisesExerciseIdRoute: typeof AuthenticatedExercisesExerciseIdRoute
+  AuthenticatedHistorySessionIdRoute: typeof AuthenticatedHistorySessionIdRoute
+  AuthenticatedWorkoutSessionIdRoute: typeof AuthenticatedWorkoutSessionIdRoute
   AuthenticatedExercisesIndexRoute: typeof AuthenticatedExercisesIndexRoute
+  AuthenticatedHistoryIndexRoute: typeof AuthenticatedHistoryIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedProfileRoute: AuthenticatedProfileRoute,
+  AuthenticatedRecordsRoute: AuthenticatedRecordsRoute,
   AuthenticatedExercisesExerciseIdRoute: AuthenticatedExercisesExerciseIdRoute,
+  AuthenticatedHistorySessionIdRoute: AuthenticatedHistorySessionIdRoute,
+  AuthenticatedWorkoutSessionIdRoute: AuthenticatedWorkoutSessionIdRoute,
   AuthenticatedExercisesIndexRoute: AuthenticatedExercisesIndexRoute,
+  AuthenticatedHistoryIndexRoute: AuthenticatedHistoryIndexRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
